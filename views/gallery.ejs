@@ -1,0 +1,23 @@
+<%- include('templates/begin.ejs') %>
+    <div class="container">
+
+        <main>
+
+            <h1>Eddigi munkáink</h1>
+            
+
+            <ul  class="gallery">
+                <% projects.forEach(project => { %>
+                <li>
+                    <a href="<%= project.galleryImagepath %>" data-fancybox="gallery" target="_blank">
+                        <img src="<%= project.galleryImagepath %>" alt="Referencia munka">
+                    </a>
+                </li>               
+                
+                <% }); %>
+               
+            
+
+        </main>
+    </div>
+    <%- include('templates/end.ejs') %>

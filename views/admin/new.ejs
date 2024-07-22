@@ -1,0 +1,68 @@
+<%- include('../templates/admin-nav.ejs') %>
+
+<div class="trailer">
+<main class="container pt-4 pb-5">
+    <div class="menu">
+       <% menuItems.forEach(item => { %>
+        <a href="<%= item.link %>"><%= item.text %></a>
+    <% }); %>
+    </div>
+    <div>
+    <nav class="nav3">
+        <ul class="futo-nav ">
+            <li class="nav-item">
+                <a href="/trailers" class="nav-a" id="newTrailerBtn">
+                    <i class=" "></i> Új futó hozzáadása
+                </a>
+            </li>
+         
+            <li class="nav-item">
+                <a href="/price" class="nav-a">
+                    <i class=""></i> Árak megváltoztatása
+                </a>
+            </li>
+            </ul>
+    </nav>
+</div>
+<div>
+    <form action="/new" method="POST" enctype="multipart/form-data">
+        <label for="name">Név:</label><br>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="description">Leírás:</label><br>
+        <textarea id="description" name="description" rows="4" cols="50" required></textarea><br><br>
+<div class="center-container">
+<div class="file-input">
+        <label for="image">Kép feltöltése:</label><br>
+        <input type="file" id="image" name="image" accept="image/*" required><br><br>
+</div>
+</div>
+        <label for="category">Kategória:</label><br>
+        <select id="category" name="category" required>
+            <% category.forEach(category => { %>
+                <option value="<%= category %>"><%=category %></option>
+            <% }); %>
+            
+        </select><br><br>
+        <label for="priceCategory">Árkategória:</label><br>
+        <select id="priceCategory" name="priceCategory" required>
+            <% priceCategories.forEach(pricecategory => { %>
+                <option value="<%= pricecategory %>"><%= pricecategory %></option>
+            <% }); %>
+            
+
+        </select><br><br>
+
+        <label for="size">Méret:</label><br>
+        <input type="text" id="size" name="size"><br><br>
+
+        <input type="submit" value="Feltöltés">
+    </form>
+</div>
+
+ </div>         
+</main>
+
+</div>
+
+<%- include('../templates/adminend.ejs') %>

@@ -1,0 +1,56 @@
+<%- include('../templates/adminbegin.ejs') %>
+<header class="container-fluid admin text-white pt-5 pb-5">
+    <div class="row">
+        <div class="col-sm-4 h1 pt-1"><%= title %></div>
+        <% if (loggedIn) { %>
+        <nav class="navbar navbar-dark navbar-expand-sm col-sm-8 justify-content-end">
+            <ul class="navbar-nav nav2">
+                <li class="nav-item">
+                    <a href="trailers" class="nav-link">
+                        <i class="fa-solid fa-trailer"></i> Kölcsönző
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="projects" class="nav-link">
+                        <i class="fa-solid fa-newspaper"></i> Munkáink
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="logout" class="nav-link">
+                        <i class="fa-solid fa-door-open"></i> Kilépés
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <% } %>
+    </div>
+</header>
+    <main class="container pt-4 pb-5">
+        <% if (loggedIn) { %>
+            <!-- Sikeres bejelentkezés üzenet megjelenítése -->
+            <% if (message) { %>
+            <div class="alert alert-success" role="alert">
+                <%= message %>
+            </div>
+            <% } %>
+            <!-- Egyéb tartalom a bejelentkezés után -->
+        <% } else { %>
+            <% if (message) { %>
+                <div class="alert alert-danger" role="alert">
+                    <%= message %>
+                </div>
+                <% } %>
+        <!-- Bejelentkezési űrlap megjelenítése -->
+        <div class="form">
+            <h1>Bejelentkezés</h1>
+            <form action="/submit" method="POST">
+                <label for="name">Felhasználónév:</label><br>
+                <input type="text" id="name" name="name" required><br><br>
+                <label for="password">Jelszó:</label><br>
+                <input type="password" id="password" name="password" required><br><br>
+                <button type="submit">Bejelentkezés</button>
+            </form>
+        </div>
+        <% } %>
+    </main>
+    <%- include('../templates/adminend.ejs') %>

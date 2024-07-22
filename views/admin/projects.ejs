@@ -1,0 +1,81 @@
+<%- include('../templates/admin-nav.ejs') %>
+<h1>Új kép hozzáadása</h1>
+<div class="center-container">
+<form action="/projects" method="POST" enctype="multipart/form-data">
+    <div class="file-input">
+    <label for="image">Kép feltöltése:</label><br>
+    <input type="file" id="image" name="image" accept="image/*" required><br><br>
+    </div>
+    <input type="submit" value="Feltöltés">
+
+</form>
+</div>
+<div class="container">
+    <main>
+        <% if (projects.length > 0) { %> <!-- Only display table if there are projects -->
+            <table class="table table-striped table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <% 
+                        // Calculate number of columns
+                        let totalImages = projects.length;
+                        let columns = Math.min(totalImages, 3); // Max 6 columns
+                        if (columns > 0) { // Only add header if there are columns
+                            for (let i = 0; i < columns; i++) { %>
+                                <th>Utánfutó</th>
+                                <th>Törlés</th>
+                        <% 
+                            }
+                        } 
+                        %>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% 
+                    // Calculate number of rows
+                    let rows = Math.ceil(totalImages / 3);
+                    for (let rowIndex = 0; rowIndex < rows; rowIndex++) { 
+                        let rowHasContent = false; // Flag to track if row has content
+                    %>
+                        <tr>
+                            <% 
+                            for (let colIndex = 0; colIndex < 3; colIndex++) {
+                                let imageIndex = rowIndex * 3 + colIndex;
+                                if (imageIndex < totalImages) {
+                                    let project = projects[imageIndex];
+                                    rowHasContent = true; // Set flag to true if there's content
+                            %>
+                                <td>
+                                    <a href="<%= project.galleryImagepath %>" data-fancybox="gallery" target="_blank">
+                                        <img class="table_img" src="<%= project.galleryImagepath %>" alt="Kép">
+                                    </a>
+                                </td>
+                                <td>
+                                    <form action="/admin/delete/<%= project.id %>" method="post" onsubmit="return confirm('Biztosan törölni akarja?');">
+                                        <button type="submit" style="background: none; border: none;">
+                                            <i class="bi bi-trash" style="color: white;"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            <% 
+                                } else {
+                                    // Create empty cells to maintain column structure
+                                    %>
+                                    <td class="empty-cell"></td>
+                                    <td class="empty-cell"></td>
+                            <% 
+                                } 
+                            } 
+                            if (rowHasContent) { // Only show row if it has content
+                                %></tr><% 
+                            } 
+                        }
+                    %>
+                </tbody>
+            </table>
+        <% } %> <!-- End of table display check -->
+    </main>
+</div>
+
+
+<%- include('../templates/adminend.ejs') %>

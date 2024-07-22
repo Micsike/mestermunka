@@ -1,0 +1,42 @@
+<%- include('templates/begin.ejs') %>
+<div class="mbody">
+    <div class="menu">
+        <div class="menu-toggle">
+            <i class="fas fa-bars"> Kölcsönző menü</i> <!-- Font Awesome ikon használata, cseréld le a megfelelő ikonra --> </div>
+       
+        <ul class="menu-items">
+            <% menuItems.forEach(item => { %>
+                <li><a href="/<%= item.link %>"><%= item.text %></a></li>
+            <% }); %>
+        </ul>
+        
+    </div>
+
+    <ul class="image-list">
+        <% trailers.forEach((trailer, index) => { %>
+            <li class="services-nav">
+                <div class="item1">
+                    
+                    <img src="<%= trailer.imagePath %>" alt="<%= trailer.name %>" class="image-left">
+                  
+                    <div class="description ">
+                        <h2><%= trailer.name %></h2>
+                        <p><%= trailer.size %> (mm)</p>
+                        <p><% const priceCategory = priceCategories.find(pc => pc.id === trailer.priceCategoryId); %>
+                            <% if (priceCategory) { %>
+                                <%= priceCategory.price %> Ft/óra
+                            <% } else { %>
+                                Nincs ár rendelve
+                            <% } %></p>
+                        <p><%= trailer.description %></p>
+                    </div> 
+                </div>
+            </li>
+        <% }); %>
+    </ul>
+
+
+
+</div>
+
+<%- include('templates/end.ejs') %>

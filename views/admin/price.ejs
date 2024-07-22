@@ -1,0 +1,31 @@
+<%- include('../templates/admin-nav.ejs') %>
+<h1><%= title %></h1>
+
+<body>
+<div class="form-container">
+<form class="price" action="/update-prices" method="POST">
+    <table class="price_table">
+        <thead>
+            <tr>
+                <th>Kategória</th>
+                <th>Jelenlegi ár (Ft)</th>
+                <th >Új ár (Ft)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% currentPrices.forEach(priceCategory => { %>
+                <tr>
+                    <td><%= priceCategory.category %></td>
+                    <td><%= priceCategory.price %></td>
+                    <td>
+                        <input type="text" name="<%= priceCategory.id %>" id="<%= priceCategory.id %>" value="<%= priceCategory.price %>">
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+    <button type="submit">Árak frissítése</button>
+</form>
+</div>
+</body>
+<%- include('../templates/adminend.ejs') %>
